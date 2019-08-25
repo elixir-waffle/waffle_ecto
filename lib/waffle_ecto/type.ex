@@ -1,15 +1,15 @@
-defmodule Arc.Ecto.Type do
+defmodule Waffle.Ecto.Type do
   @moduledoc false
   require Logger
 
   def type, do: :string
 
   @filename_with_timestamp ~r{^(.*)\?(\d+)$}
-  
+
   def cast(definition, %{file_name: file, updated_at: updated_at}) do
     cast(definition, %{"file_name" => file, "updated_at" => updated_at})
   end
-  
+
   def cast(_definition, %{"file_name" => file, "updated_at" => updated_at}) do
     {:ok, %{file_name: file, updated_at: updated_at}}
   end

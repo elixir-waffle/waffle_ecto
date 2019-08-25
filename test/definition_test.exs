@@ -1,8 +1,8 @@
-defmodule ArcTest.Ecto.Definition do
+defmodule WaffleTest.Ecto.Definition do
   use ExUnit.Case
 
   test "defines Definition.Type module" do
-    assert DummyDefinitionTwo.Type.type == Arc.Ecto.Type.type
+    assert DummyDefinitionTwo.Type.type == Waffle.Ecto.Type.type
   end
 
   test "falls back to pre-defined url" do

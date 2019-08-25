@@ -4,5 +4,5 @@ defmodule DummyDefinitionTwo do
   def store({file, _}), do: {:ok, file}
   def delete(_), do: :ok
   defoverridable [delete: 1, url: 3]
-  use Arc.Ecto.Definition
+  use Waffle.Ecto.Definition
 end

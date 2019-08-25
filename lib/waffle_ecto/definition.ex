@@ -1,14 +1,14 @@
-defmodule Arc.Ecto.Definition do
+defmodule Waffle.Ecto.Definition do
   defmacro __using__(_options) do
     definition = __CALLER__.module
 
     quote do
       defmodule Module.concat(unquote(definition), "Type") do
         @behaviour Ecto.Type
-        def type, do: Arc.Ecto.Type.type
-        def cast(value), do: Arc.Ecto.Type.cast(unquote(definition), value)
-        def load(value), do: Arc.Ecto.Type.load(unquote(definition), value)
-        def dump(value), do: Arc.Ecto.Type.dump(unquote(definition), value)
+        def type, do: Waffle.Ecto.Type.type
+        def cast(value), do: Waffle.Ecto.Type.cast(unquote(definition), value)
+        def load(value), do: Waffle.Ecto.Type.load(unquote(definition), value)
+        def dump(value), do: Waffle.Ecto.Type.dump(unquote(definition), value)
       end
 
       def url({%{file_name: file_name, updated_at: updated_at}, scope}, version, options) do
@@ -31,7 +31,7 @@ defmodule Arc.Ecto.Definition do
       end
 
       def url(f, v, options), do: super(f, v, options)
-      
+
       def delete({%{file_name: file_name, updated_at: _updated_at}, scope}), do: super({file_name, scope})
 
       def delete(args), do: super(args)

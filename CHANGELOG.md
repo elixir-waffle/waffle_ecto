@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.1 (2019-08-25)
+  * Move project to a new repository and change name to `WaffleEcto`
+
 ## v0.11.2 (2019-05-18)
 * (Dependency Relax) Require `ecto >= 2.1.0`
 * (Enhancement) Add `allow_urls` as an an alternative to `allow_paths` for fetching remote files

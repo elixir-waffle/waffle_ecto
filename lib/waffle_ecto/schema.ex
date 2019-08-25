@@ -1,7 +1,7 @@
-defmodule Arc.Ecto.Schema do
+defmodule Waffle.Ecto.Schema do
   defmacro __using__(_) do
     quote do
-      import Arc.Ecto.Schema
+      import Waffle.Ecto.Schema
     end
   end
 
@@ -22,12 +22,12 @@ defmodule Arc.Ecto.Schema do
         end
       end)
 
-      arc_params = case params do
+      waffle_params = case params do
         :invalid ->
           :invalid
         %{} ->
           params
-          |> Arc.Ecto.Schema.convert_params_to_binary
+          |> Waffle.Ecto.Schema.convert_params_to_binary
           |> Map.take(allowed_param_keys)
           |> Enum.reduce([], fn
             # Don't wrap nil casts in the scope object
@@ -47,7 +47,7 @@ defmodule Arc.Ecto.Schema do
           |> Enum.into(%{})
       end
 
-      Ecto.Changeset.cast(changeset_or_data, arc_params, allowed)
+      Ecto.Changeset.cast(changeset_or_data, waffle_params, allowed)
     end
   end
 

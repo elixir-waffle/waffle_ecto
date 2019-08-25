@@ -1,10 +1,10 @@
-defmodule Arc.Ecto.Mixfile do
+defmodule Waffle.Ecto.Mixfile do
   use Mix.Project
 
-  @version "0.11.2"
+  @version "0.0.1"
 
   def project do
-    [app: :arc_ecto,
+    [app: :waffle_ecto,
      version: @version,
      elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -19,7 +19,7 @@ defmodule Arc.Ecto.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :arc]]
+    [applications: [:logger, :waffle]]
   end
 
   # Specifies which paths to compile per environment.
@@ -28,20 +28,20 @@ defmodule Arc.Ecto.Mixfile do
 
   defp description do
     """
-    An integration with Arc and Ecto.
+    An integration with Waffle and Ecto.
     """
   end
 
   defp package do
-    [maintainers: ["Sean Stavropoulos"],
+    [maintainers: ["Boris Kuznetsov"],
      licenses: ["Apache 2.0"],
-     links: %{"GitHub" => "https://github.com/stavro/arc_ecto"},
-     files: ~w(mix.exs README.md lib)]
+     links: %{"GitHub" => "https://github.com/elixir-waffle/waffle_ecto"},
+     files: ~w(mix.exs README.md CHANGELOG.md lib)]
   end
 
   defp deps do
     [
-      {:arc,  "~> 0.11.0"},
+      {:waffle, "~> 0.0.1"},
       {:ecto, ">= 2.1.0"},
       {:mock, "~> 0.3.3", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev}

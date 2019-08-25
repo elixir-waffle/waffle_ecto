@@ -1,7 +1,7 @@
-Arc.Ecto
+Waffle.Ecto
 ========
 
-Arc.Ecto provides an integration with [Arc](https://github.com/stavro/arc) and Ecto.
+Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
 Installation
 ============
@@ -11,7 +11,7 @@ Add the latest stable release to your `mix.exs` file:
 ```elixir
 defp deps do
   [
-    {:arc_ecto, "~> 0.11.1"}
+    {:waffle_ecto, "~> 0.0.1"}
   ]
 end
 ```
@@ -21,27 +21,27 @@ Then run `mix deps.get` in your shell to fetch the dependencies.
 Usage
 =====
 
-### Add Arc.Ecto.Definition
+### Add Waffle.Ecto.Definition
 
-Add a second using macro `use Arc.Ecto.Definition` to the top of your Arc definitions.
+Add a second using macro `use Waffle.Ecto.Definition` to the top of your Waffle definitions.
 
 ```elixir
 defmodule MyApp.Avatar do
-  use Arc.Definition
-  use Arc.Ecto.Definition
+  use Waffle.Definition
+  use Waffle.Ecto.Definition
 
   # ...
 end
 ```
 
-This provides a set of functions to ease integration with Arc and Ecto.  In particular:
+This provides a set of functions to ease integration with Waffle and Ecto.  In particular:
 
   * Definition of a custom Ecto Type responsible for storing the images.
   * Url generation with a cache-busting timestamp query parameter
 
 ### Add a string column to your schema
 
-Arc attachments should be stored in a string column, with a name indicative of the attachment.
+Waffle attachments should be stored in a string column, with a name indicative of the attachment.
 
 ```elixir
 create table :users do
@@ -51,14 +51,14 @@ end
 
 ### Add your attachment to your Ecto Schema
 
-Add a using statement `use Arc.Ecto.Schema` to the top of your ecto schema, and specify the type of the column in your schema as `MyApp.Avatar.Type`.
+Add a using statement `use Waffle.Ecto.Schema` to the top of your ecto schema, and specify the type of the column in your schema as `MyApp.Avatar.Type`.
 
-Attachments can subsequently be passed to Arc's storage though a Changeset `cast_attachments/3` function, following the syntax of `cast/3`
+Attachments can subsequently be passed to Waffle's storage though a Changeset `cast_attachments/3` function, following the syntax of `cast/3`
 
 ```elixir
 defmodule MyApp.User do
   use MyApp.Web, :model
-  use Arc.Ecto.Schema
+  use Waffle.Ecto.Schema
 
   schema "users" do
     field :name,   :string
@@ -115,7 +115,7 @@ end
 
 ### Retrieve the serialized url
 
-Both public and signed urls will include the timestamp for cache busting, and are retrieved the exact same way as using Arc directly.
+Both public and signed urls will include the timestamp for cache busting, and are retrieved the exact same way as using Waffle directly.
 
 ```elixir
   user = Repo.get(User, 1)
@@ -135,6 +135,7 @@ Both public and signed urls will include the timestamp for cache busting, and ar
 
 ## License
 
+Copyright 2019 Boris Kuznetsov
 Copyright 2015 Sean Stavropoulos
 
   Licensed under the Apache License, Version 2.0 (the "License");

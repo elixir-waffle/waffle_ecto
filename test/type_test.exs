@@ -1,4 +1,4 @@
-defmodule ArcTest.Ecto.Type do
+defmodule WaffleTest.Ecto.Type do
   use ExUnit.Case, async: false
 
   test "dumps filenames with timestamp" do
