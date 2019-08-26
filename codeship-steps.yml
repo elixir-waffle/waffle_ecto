@@ -1,0 +1,3 @@
+- name: tests
+  service: waffle_ecto
+  command: mix test
