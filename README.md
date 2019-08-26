@@ -1,6 +1,8 @@
 Waffle.Ecto
 ========
 
+[![Codeship Status for elixir-waffle/waffle_ecto](https://app.codeship.com/projects/60167fe0-aa59-0137-be69-2259d5318dee/status?branch=master)](https://app.codeship.com/projects/361675)
+
 Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
 Installation
