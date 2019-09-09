@@ -4,8 +4,13 @@ defmodule Waffle.Ecto.Definition do
 
     quote do
       defmodule Module.concat(unquote(definition), "Type") do
-        @behaviour Ecto.Type
-        def type, do: Waffle.Ecto.Type.type
+        if macro_exported?(Ecto.Type, :__using__, 1) do
+          use Ecto.Type
+        else
+          @behaviour Ecto.Type
+        end
+
+        def type, do: Waffle.Ecto.Type.type()
         def cast(value), do: Waffle.Ecto.Type.cast(unquote(definition), value)
         def load(value), do: Waffle.Ecto.Type.load(unquote(definition), value)
         def dump(value), do: Waffle.Ecto.Type.dump(unquote(definition), value)
@@ -32,12 +37,14 @@ defmodule Waffle.Ecto.Definition do
 
       def url(f, v, options), do: super(f, v, options)
 
-      def delete({%{file_name: file_name, updated_at: _updated_at}, scope}), do: super({file_name, scope})
+      def delete({%{file_name: file_name, updated_at: _updated_at}, scope}),
+        do: super({file_name, scope})
 
       def delete(args), do: super(args)
 
       defp version_url(updated_at, url) do
         stamp = :calendar.datetime_to_gregorian_seconds(NaiveDateTime.to_erl(updated_at))
+
         case URI.parse(url).query do
           nil -> url <> "?v=#{stamp}"
           _ -> url <> "&v=#{stamp}"
