@@ -4,9 +4,12 @@ defmodule Waffle.Ecto.Definition do
 
     quote do
       defmodule Module.concat(unquote(definition), "Type") do
+        # After the 3.2 version Ecto has moved @behavior
+        # inside the `__using__` macro
         if macro_exported?(Ecto.Type, :__using__, 1) do
           use Ecto.Type
         else
+          # in order to support versions lower than 3.2
           @behaviour Ecto.Type
         end
 
