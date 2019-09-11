@@ -135,6 +135,10 @@ Both public and signed urls will include the timestamp for cache busting, and ar
   MyApp.Avatar.url({user.avatar, user}, :thumb, signed: true)
 ```
 
+## Development
+
+[Development documentation](/documentation/development.md)
+
 ## License
 
 Copyright 2019 Boris Kuznetsov
