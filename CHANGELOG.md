@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.0.2 (2019-09-14)
+  * Handle nil urls for skipped versions (#6)
+  * Check for the new using block in Ecto 3.2 (#5)
+  * update dependencies (#4)
+  * add a development documentation (#3)
+  * add CI integration (#2)
+
 ## v0.0.1 (2019-08-25)
   * Move project to a new repository and change name to `WaffleEcto`
 
