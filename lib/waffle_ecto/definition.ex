@@ -25,11 +25,13 @@ defmodule Waffle.Ecto.Definition do
         if options[:signed] do
           url
         else
-          case updated_at do
-            %NaiveDateTime{} ->
+          case {url, updated_at} do
+            {nil, _} -> nil
+
+            {_, %NaiveDateTime{}} ->
               version_url(updated_at, url)
 
-            string when is_bitstring(updated_at) ->
+            {_, string} when is_bitstring(updated_at) ->
               version_url(NaiveDateTime.from_iso8601!(string), url)
 
             _ ->
