@@ -1,5 +1,8 @@
 defmodule Waffle.Ecto.Type do
-  @moduledoc false
+  @moduledoc """
+  Provides implementation for custom Ecto.Type behaviour.
+  """
+
   require Logger
 
   def type, do: :string
