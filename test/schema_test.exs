@@ -115,7 +115,7 @@ defmodule WaffleTest.Ecto.Schema do
   end
 
   test_with_mock "casting binary data struct attachments", DummyDefinition, [store: fn({%{filename: "/path/to/my/file.png", binary: <<1, 2, 3>>}, %TestUser{}}) -> {:ok, "file.png"} end] do
-    changeset = TestUser.changeset(%TestUser{}, %{"avatar" => %{filename: "/path/to/my/file.png", binary: <<1, 2, 3>>}})
+    TestUser.changeset(%TestUser{}, %{"avatar" => %{filename: "/path/to/my/file.png", binary: <<1, 2, 3>>}})
     assert called DummyDefinition.store({%{filename: "/path/to/my/file.png", binary: <<1, 2, 3>>}, %TestUser{}})
   end
 end
