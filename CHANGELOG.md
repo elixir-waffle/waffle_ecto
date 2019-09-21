@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.3 (2019-09-21)
+  * Pass binary to `cast_attachments` (#7)
+
 ## v0.0.2 (2019-09-14)
   * Handle nil urls for skipped versions (#6)
   * Check for the new using block in Ecto 3.2 (#5)
