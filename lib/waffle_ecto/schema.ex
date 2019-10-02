@@ -1,4 +1,35 @@
 defmodule Waffle.Ecto.Schema do
+  @moduledoc """
+  Defines helpers to work with changeset.
+
+  Add a using statement `use Waffle.Ecto.Schema` to the top of your
+  ecto schema, and specify the type of the column in your schema as
+  `MyApp.Avatar.Type`.
+
+  Attachments can subsequently be passed to Waffle's storage though a
+  Changeset `cast_attachments/3` function, following the syntax of
+  `cast/3`.
+
+  ## Example
+
+    defmodule MyApp.User do
+      use MyApp.Web, :model
+      use Waffle.Ecto.Schema
+
+      schema "users" do
+        field :name,   :string
+        field :avatar, MyApp.Avatar.Type
+      end
+
+      def changeset(user, params \\ :invalid) do
+        user
+        |> cast(params, [:name])
+        |> cast_attachments(params, [:avatar])
+        |> validate_required([:name, :avatar])
+      end
+    end
+  """
+
   defmacro __using__(_) do
     quote do
       import Waffle.Ecto.Schema
