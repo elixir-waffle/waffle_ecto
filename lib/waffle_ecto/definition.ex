@@ -1,4 +1,33 @@
 defmodule Waffle.Ecto.Definition do
+  @moduledoc """
+  Provides a set of functions to ease integration with Waffle and Ecto.
+
+  In particular:
+    * Definition of a custom Ecto Type responsible for storing the images
+    * URL generation with a cache-busting timestamp query parameter
+
+  ## Example
+
+    defmodule MyApp.Uploaders.AvatarUploader do
+      use Waffle.Definition
+      use Waffle.Ecto.Definition
+
+      # ...
+    end
+
+    defmodule MyApp.User do
+      use MyApp.Web, :model
+      use Waffle.Ecto.Schema
+
+      schema "users" do
+        field :name,   :string
+        field :avatar, MyApp.Uploaders.AvatarUploader.Type
+      end
+
+      # ...
+    end
+  """
+
   defmacro __using__(_options) do
     definition = __CALLER__.module
 
