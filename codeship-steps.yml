@@ -1,3 +1,6 @@
+- name: linters
+  service: waffle_ecto
+  command: mix credo --strict
 - name: tests
   service: waffle_ecto
   command: mix test
