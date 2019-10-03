@@ -1,5 +1,5 @@
 defmodule Waffle.Ecto.Schema do
-  @moduledoc """
+  @moduledoc ~S"""
   Defines helpers to work with changeset.
 
   Add a using statement `use Waffle.Ecto.Schema` to the top of your
@@ -12,22 +12,23 @@ defmodule Waffle.Ecto.Schema do
 
   ## Example
 
-    defmodule MyApp.User do
-      use MyApp.Web, :model
-      use Waffle.Ecto.Schema
+      defmodule MyApp.User do
+        use MyApp.Web, :model
+        use Waffle.Ecto.Schema
 
-      schema "users" do
-        field :name,   :string
-        field :avatar, MyApp.Avatar.Type
+        schema "users" do
+          field :name,   :string
+          field :avatar, MyApp.Uploaders.AvatarUploader.Type
+        end
+
+        def changeset(user, params \\ :invalid) do
+          user
+          |> cast(params, [:name])
+          |> cast_attachments(params, [:avatar])
+          |> validate_required([:name, :avatar])
+        end
       end
 
-      def changeset(user, params \\ :invalid) do
-        user
-        |> cast(params, [:name])
-        |> cast_attachments(params, [:avatar])
-        |> validate_required([:name, :avatar])
-      end
-    end
   """
 
   defmacro __using__(_) do

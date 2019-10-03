@@ -9,23 +9,12 @@ defmodule Waffle.Ecto.Definition do
 
   ## Example
 
-    defmodule MyApp.Uploaders.AvatarUploader do
-      use Waffle.Definition
-      use Waffle.Ecto.Definition
+      defmodule MyApp.Uploaders.AvatarUploader do
+        use Waffle.Definition
+        use Waffle.Ecto.Definition
 
-      # ...
-    end
-
-    defmodule MyApp.User do
-      use MyApp.Web, :model
-      use Waffle.Ecto.Schema
-
-      schema "users" do
-        field :name,   :string
-        field :avatar, MyApp.Uploaders.AvatarUploader.Type
+        # ...
       end
-
-      # ...
     end
 
   ## URL generation
@@ -34,19 +23,20 @@ defmodule Waffle.Ecto.Definition do
   busting, and are retrieved the exact same way as using Waffle
   directly.
 
-    user = Repo.get(User, 1)
+      user = Repo.get(User, 1)
 
-    # To receive a single rendition:
-    MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb)
-    #=> "https://bucket.s3.amazonaws.com/uploads/avatars/1/thumb.png?v=63601457477"
+      # To receive a single rendition:
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb)
+      #=> "https://bucket.s3.amazonaws.com/uploads/avatars/1/thumb.png?v=63601457477"
 
-    # To receive all renditions:
-    MyApp.Uploaders.AvatarUploader.urls({user.avatar, user})
-    #=> %{original: "https://.../original.png?v=1234", thumb: "https://.../thumb.png?v=1234"}
+      # To receive all renditions:
+      MyApp.Uploaders.AvatarUploader.urls({user.avatar, user})
+      #=> %{original: "https://.../original.png?v=1234", thumb: "https://.../thumb.png?v=1234"}
 
-    # To receive a signed url:
-    MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, signed: true)
-    MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb, signed: true)
+      # To receive a signed url:
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, signed: true)
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb, signed: true)
+
   """
 
   defmacro __using__(_options) do

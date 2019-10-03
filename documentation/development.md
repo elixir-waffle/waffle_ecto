@@ -20,5 +20,14 @@ $ > mix deps.get
 ### Tests without S3 integration
 ```sh
 $ mix test
+```
+
+## Common tasks
+
+```sh
+# to run linter
 $ mix credo --strict
+
+# to generate documentation
+$ MIX_ENV=dev mix docs
 ```

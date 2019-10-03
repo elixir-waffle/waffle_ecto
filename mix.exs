@@ -9,6 +9,7 @@ defmodule Waffle.Ecto.Mixfile do
      elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      deps: deps(),
+     docs: docs(),
 
     # Hex
      description: description(),
@@ -37,6 +38,12 @@ defmodule Waffle.Ecto.Mixfile do
      licenses: ["Apache 2.0"],
      links: %{"GitHub" => "https://github.com/elixir-waffle/waffle_ecto"},
      files: ~w(mix.exs README.md CHANGELOG.md lib)]
+  end
+
+  defp docs do
+    [
+      main: "Waffle.Ecto"
+    ]
   end
 
   defp deps do
