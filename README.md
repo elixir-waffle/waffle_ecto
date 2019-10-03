@@ -4,7 +4,7 @@
 
 Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
-[Documentation](https://hexdocs.pm/waffle_ecto/)
+[Documentation](https://hexdocs.pm/waffle_ecto)
 
 ## Installation
 
