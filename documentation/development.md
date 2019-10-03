@@ -20,4 +20,5 @@ $ > mix deps.get
 ### Tests without S3 integration
 ```sh
 $ mix test
+$ mix credo --strict
 ```
