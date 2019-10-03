@@ -1,4 +1,8 @@
 defmodule DummyDefinitionTwo do
+  @moduledoc """
+  Dummy module for testing
+  """
+
   def url(_, :skipped, _), do: nil
   def url(_, :original, _), do: "fallback"
   def url(_, :signed, _), do: "fallback?a=1&b=2"

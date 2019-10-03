@@ -9,6 +9,7 @@ defmodule Waffle.Ecto.Mixfile do
      elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      deps: deps(),
+     docs: docs(),
 
     # Hex
      description: description(),
@@ -39,12 +40,19 @@ defmodule Waffle.Ecto.Mixfile do
      files: ~w(mix.exs README.md CHANGELOG.md lib)]
   end
 
+  defp docs do
+    [
+      main: "Waffle.Ecto"
+    ]
+  end
+
   defp deps do
     [
       {:waffle, "~> 0.0.3"},
       {:ecto, ">= 2.1.0"},
       {:mock, "~> 0.3", only: :test},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
     ]
   end
 end

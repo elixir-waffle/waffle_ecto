@@ -1,4 +1,44 @@
 defmodule Waffle.Ecto.Definition do
+  @moduledoc """
+  Provides a set of functions to ease integration with Waffle and Ecto.
+
+  In particular:
+
+    * Definition of a custom Ecto Type responsible for storing the images
+    * URL generation with a cache-busting timestamp query parameter
+
+  ## Example
+
+      defmodule MyApp.Uploaders.AvatarUploader do
+        use Waffle.Definition
+        use Waffle.Ecto.Definition
+
+        # ...
+      end
+    end
+
+  ## URL generation
+
+  Both public and signed urls will include the timestamp for cache
+  busting, and are retrieved the exact same way as using Waffle
+  directly.
+
+      user = Repo.get(User, 1)
+
+      # To receive a single rendition:
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb)
+      #=> "https://bucket.s3.amazonaws.com/uploads/avatars/1/thumb.png?v=63601457477"
+
+      # To receive all renditions:
+      MyApp.Uploaders.AvatarUploader.urls({user.avatar, user})
+      #=> %{original: "https://.../original.png?v=1234", thumb: "https://.../thumb.png?v=1234"}
+
+      # To receive a signed url:
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, signed: true)
+      MyApp.Uploaders.AvatarUploader.url({user.avatar, user}, :thumb, signed: true)
+
+  """
+
   defmacro __using__(_options) do
     definition = __CALLER__.module
 

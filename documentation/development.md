@@ -21,3 +21,19 @@ $ > mix deps.get
 ```sh
 $ mix test
 ```
+
+## Common tasks
+
+```sh
+# to run linter
+$ mix credo --strict
+
+# to generate documentation
+$ MIX_ENV=dev mix docs
+
+# to publish package
+$ MIX_ENV=dev mix hex.publish
+
+# to publish only documentation
+$ MIX_ENV=dev mix hex.publish docs
+```
