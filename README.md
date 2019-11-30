@@ -1,4 +1,6 @@
-# Waffle.Ecto
+# Waffle.Ecto [![Sponsored by Evrone][evrone-img]][evrome-url]
+[evrone-img]: https://img.shields.io/badge/Sponsored_by-Evrone-brightgreen.svg
+[evrome-url]: https://evrone.com?utm_source=waffle
 
 [![Codeship Status for elixir-waffle/waffle_ecto](https://app.codeship.com/projects/60167fe0-aa59-0137-be69-2259d5318dee/status?branch=master)](https://app.codeship.com/projects/361675)
 
