@@ -15,7 +15,6 @@ defmodule Waffle.Ecto.Definition do
 
         # ...
       end
-    end
 
   ## URL generation
 
