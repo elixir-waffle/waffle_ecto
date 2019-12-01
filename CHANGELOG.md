@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.4 (2019-12-01)
+  * add tutorial about using id within filepath (#10)
+  * add credo (#8)
+
 ## v0.0.3 (2019-09-21)
   * Pass binary to `cast_attachments` (#7)
 
