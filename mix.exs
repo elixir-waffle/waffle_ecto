@@ -42,7 +42,8 @@ defmodule Waffle.Ecto.Mixfile do
 
   defp docs do
     [
-      main: "Waffle.Ecto"
+      main: "Waffle.Ecto",
+      extras: ["documentation/examples/filepath-with-id.md"]
     ]
   end
 

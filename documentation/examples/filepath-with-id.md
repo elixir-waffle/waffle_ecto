@@ -1,0 +1,43 @@
+# Filepath with `:id`
+
+In order to use `:id` attribute within file's path, we should separate
+creation stage on two steps:
+- persist the resource
+- upload the file
+
+It needs to be done because `:id` not yet exist on creation stage.
+
+## Example
+
+To implement this we should define `storage_dir/2` inside uploader
+
+```elixir
+def storage_dir(_version, {_file, scope}) do
+  "uploads/avatar/#{scope.id}"
+end
+```
+
+Then define two separate `changeset`s inside our resource
+
+```elixir
+def changeset(user, attrs) do
+  user
+  |> cast(attrs, [:name])
+  |> validate_required([:name])
+end
+
+def avatar_changeset(user, attrs) do
+  user
+  |> cast_attachments(attrs, [:avatar])
+  |> validate_required([:avatar])
+end
+```
+
+Finally, we can combine two stages into one action
+
+```elixir
+Ecto.Multi.new()
+|> Ecto.Multi.insert(:user, User.changeset(user, attrs))
+|> Ecto.Multi.update(:user_with_avatar, &User.avatar_changeset(&1.user, attrs))
+|> Repo.transaction()
+```
