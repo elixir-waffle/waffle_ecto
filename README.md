@@ -25,7 +25,7 @@ Add the latest stable release to your `mix.exs` file:
 ```elixir
 defp deps do
   [
-    {:waffle_ecto, "~> 0.0.3"}
+    {:waffle_ecto, "~> 0.0.5"}
   ]
 end
 ```

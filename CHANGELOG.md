@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.5 (2019-12-12)
+  * add documentation for `cast_attachemets` (#11)
+
 ## v0.0.4 (2019-12-01)
   * add tutorial about using id within filepath (#10)
   * add credo (#8)
