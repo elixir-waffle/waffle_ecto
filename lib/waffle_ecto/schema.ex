@@ -37,6 +37,19 @@ defmodule Waffle.Ecto.Schema do
     end
   end
 
+  @doc ~S"""
+  Extracts attachements from params and converts it to the accepted format.
+
+  ## Options
+
+    * `:allow_urls` — fetches remote file if the string matches `~r/^https?:\/\//`
+    * `:allow_paths` — accepts any local path as file destination
+
+  ## Examples
+
+      cast_attachemets(changeset, params, [:fetched_remote_file], allow_urls: true)
+
+  """
   defmacro cast_attachments(changeset_or_data, params, allowed, options \\ []) do
     quote bind_quoted: [
             changeset_or_data: changeset_or_data,
