@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.6 (2020-02-03)
+  * update dependencies
+
 ## v0.0.5 (2019-12-12)
   * add documentation for `cast_attachemets` (#11)
 
