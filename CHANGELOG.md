@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.7 (2020-02-04)
+  * upgrade `waffle` to `v1.0.0`
+
 ## v0.0.6 (2020-02-03)
   * update dependencies
 
