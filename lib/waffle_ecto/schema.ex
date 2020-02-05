@@ -47,7 +47,7 @@ defmodule Waffle.Ecto.Schema do
 
   ## Examples
 
-      cast_attachemets(changeset, params, [:fetched_remote_file], allow_urls: true)
+      cast_attachments(changeset, params, [:fetched_remote_file], allow_urls: true)
 
   """
   defmacro cast_attachments(changeset_or_data, params, allowed, options \\ []) do
