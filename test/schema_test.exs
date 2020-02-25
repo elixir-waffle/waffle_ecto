@@ -39,6 +39,13 @@ defmodule WaffleTest.Ecto.Schema do
       |> cast(params, ~w(first_name)a)
       |> cast_attachments(params, ~w(avatar)a)
     end
+
+    def changeset_without_trim(user, params \\ :invalid) do
+      user
+      |> cast(params, ~w(first_name)a)
+      |> cast_attachments(params, ~w(avatar)a, trim: false, allow_paths: true, allow_urls: true)
+      |> validate_required(:avatar)
+    end
   end
 
   def build_upload(path) do
@@ -134,15 +141,21 @@ defmodule WaffleTest.Ecto.Schema do
 
   test_with_mock "allow_paths => true", DummyDefinition,
     store: fn {"/path/to/my/file.png", %TestUser{}} -> {:ok, "file.png"} end do
-    TestUser.path_changeset(%TestUser{}, %{"avatar" => "/path/to/my/file.png"})
+    TestUser.path_changeset(%TestUser{}, %{"avatar" => "  /path/to/my/file.png  "})
     assert called(DummyDefinition.store({"/path/to/my/file.png", %TestUser{}}))
+  end
+
+  test_with_mock "with disabled trim and allow_paths => true", DummyDefinition,
+    store: fn {"  /path/to/my/file.png  ", %TestUser{}} -> {:ok, "file.png"} end do
+    TestUser.changeset_without_trim(%TestUser{}, %{"avatar" => "  /path/to/my/file.png  "})
+    assert called(DummyDefinition.store({"  /path/to/my/file.png  ", %TestUser{}}))
   end
 
   test_with_mock "allow_urls => true", DummyDefinition,
     store: fn {"http://external.url/file.png", %TestUser{}} ->
       {:ok, "file.png"}
     end do
-    TestUser.url_changeset(%TestUser{}, %{"avatar" => "http://external.url/file.png"})
+    TestUser.url_changeset(%TestUser{}, %{"avatar" => "   http://external.url/file.png   "})
     assert called(DummyDefinition.store({"http://external.url/file.png", %TestUser{}}))
   end
 
@@ -152,6 +165,17 @@ defmodule WaffleTest.Ecto.Schema do
     end do
     TestUser.url_changeset(%TestUser{}, %{"avatar" => "/path/to/my/file.png"})
     assert not called(DummyDefinition.store({"/path/to/my/file.png", %TestUser{}}))
+  end
+
+  test_with_mock "with disabled trim and allow_urls => true", DummyDefinition,
+    store: fn {"  http://external.url/file.png  ", %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    TestUser.changeset_without_trim(%TestUser{}, %{
+      "avatar" => "  http://external.url/file.png  "
+    })
+
+    assert called(DummyDefinition.store({"  http://external.url/file.png  ", %TestUser{}}))
   end
 
   test_with_mock "casting binary data struct attachments", DummyDefinition,
