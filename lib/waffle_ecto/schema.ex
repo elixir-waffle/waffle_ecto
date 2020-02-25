@@ -112,6 +112,9 @@ defmodule Waffle.Ecto.Schema do
         path = if trim, do: String.trim(path), else: path
 
         cond do
+          path == "" ->
+            fields
+
           Keyword.get(options, :allow_urls, false) and Regex.match?(~r/^https?:\/\//, path) ->
             [{field, {path, scope}} | fields]
 

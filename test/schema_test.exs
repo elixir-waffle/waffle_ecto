@@ -139,6 +139,15 @@ defmodule WaffleTest.Ecto.Schema do
     assert nil == Ecto.Changeset.get_field(changeset, :avatar)
   end
 
+  test_with_mock "casting empty attachments", DummyDefinition,
+    store: fn {"/path/to/my/file.png", %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    changeset = TestUser.changeset(%TestUser{}, %{"avatar" => ""})
+    assert nil == Ecto.Changeset.get_field(changeset, :avatar)
+    assert not called(DummyDefinition.store({"/path/to/my/file.png", %TestUser{}}))
+  end
+
   test_with_mock "allow_paths => true", DummyDefinition,
     store: fn {"/path/to/my/file.png", %TestUser{}} -> {:ok, "file.png"} end do
     TestUser.path_changeset(%TestUser{}, %{"avatar" => "  /path/to/my/file.png  "})
