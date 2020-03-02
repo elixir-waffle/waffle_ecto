@@ -44,8 +44,6 @@ defmodule Waffle.Ecto.Schema do
 
     * `:allow_urls` — fetches remote file if the string matches `~r/^https?:\/\//`
     * `:allow_paths` — accepts any local path as file destination
-    * `:trim` - a boolean that sets whether whitespaces are removed before
-      running the cast on binaries/strings, defaults to true
 
   ## Examples
 
@@ -108,8 +106,7 @@ defmodule Waffle.Ecto.Schema do
 
       # If casting a binary (path), ensure we've explicitly allowed paths
       {field, path}, fields when is_binary(path) ->
-        trim = Keyword.get(options, :trim, true)
-        path = if trim, do: String.trim(path), else: path
+        path = String.trim(path)
 
         cond do
           path == "" ->
