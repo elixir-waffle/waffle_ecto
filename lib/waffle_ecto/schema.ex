@@ -106,9 +106,13 @@ defmodule Waffle.Ecto.Schema do
 
       # If casting a binary (path), ensure we've explicitly allowed paths
       {field, path}, fields when is_binary(path) ->
+        path = String.trim(path)
+
         cond do
-          Keyword.get(options, :allow_urls, false) and
-              Regex.match?(~r/^https?:\/\//, path) ->
+          path == "" ->
+            fields
+
+          Keyword.get(options, :allow_urls, false) and Regex.match?(~r/^https?:\/\//, path) ->
             [{field, {path, scope}} | fields]
 
           Keyword.get(options, :allow_paths, false) ->
