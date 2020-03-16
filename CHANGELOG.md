@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.8 (2020-03-16)
+  * Fix typo (#14)
+  * trim binary path and skip upload handling for empty values (#15)
+  * add reference to help pages (#16)
+
 ## v0.0.7 (2020-02-04)
   * upgrade `waffle` to `v1.0.0`
 
