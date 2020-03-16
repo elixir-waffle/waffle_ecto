@@ -1,4 +1,4 @@
-# Filepath with `:id`
+# How to use `:id` in filepath
 
 In order to use `:id` attribute within file's path, we should separate
 creation stage on two steps:
