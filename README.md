@@ -14,6 +14,10 @@
 [hexdocs-img]: http://img.shields.io/badge/hexdocs-documentation-brightgreen.svg
 [hexdocs-url]: https://hexdocs.pm/waffle_ecto
 
+<img align="right" width="176" height="120"
+     alt="Waffle.Ecto provides an integration with Waffle and Ecto"
+     src="https://elixir-waffle.github.io/waffle/assets/waffle-ecto-logo.svg">
+
 Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
 [Documentation](https://hexdocs.pm/waffle_ecto)
