@@ -49,7 +49,7 @@ defmodule Waffle.Ecto.Mixfile do
 
   defp deps do
     [
-      {:waffle, "~> 1.0.0"},
+      {:waffle, "~> 1.1.0"},
       {:ecto, ">= 2.1.0"},
       {:mock, "~> 0.3", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev},
