@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.9 (2020-05-25)
+  * add logo (#17)
+  * follow all waffle minor version updates (#18)
+
 ## v0.0.8 (2020-03-16)
   * Fix typo (#14)
   * trim binary path and skip upload handling for empty values (#15)
