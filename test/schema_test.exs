@@ -175,4 +175,16 @@ defmodule WaffleTest.Ecto.Schema do
              )
            )
   end
+
+  test_with_mock "casting base64-encoded data struct attachments", DummyDefinition,
+    store: fn {%{filename: _, binary: _}, %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    cs = TestUser.changeset(%TestUser{}, %{
+      "avatar" => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    })
+
+    assert cs.valid?
+    assert %{avatar: %{file_name: "file.png", updated_at: _}} = cs.changes
+  end
 end

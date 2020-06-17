@@ -104,6 +104,18 @@ defmodule Waffle.Ecto.Schema do
       when is_binary(filename) and is_binary(binary) ->
         [{field, {upload, scope}} | fields]
 
+      {field, data = "data:image/" <> _}, fields ->
+        encoded_image = String.replace(data, ~r/^data\:image\/.*;base64,/, "")
+
+        case Base.decode64(encoded_image) do
+          {:ok, binary_image} ->
+            upload = %{filename: unique_file_name(data), binary: binary_image}
+            [{field, {upload, scope}} | fields]
+
+          _ ->
+            fields
+        end
+
       # If casting a binary (path), ensure we've explicitly allowed paths
       {field, path}, fields when is_binary(path) ->
         path = String.trim(path)
@@ -122,6 +134,11 @@ defmodule Waffle.Ecto.Schema do
             fields
         end
     end)
+  end
+
+  defp unique_file_name("data:image/" <> rest) do
+    extension = String.replace(rest, ~r/;base64,.*/, "")
+    "#{Ecto.UUID.generate()}.#{extension}"
   end
 
   def convert_params_to_binary(params) do
