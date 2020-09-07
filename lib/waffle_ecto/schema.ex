@@ -38,7 +38,7 @@ defmodule Waffle.Ecto.Schema do
   end
 
   @doc ~S"""
-  Extracts attachements from params and converts it to the accepted format.
+  Extracts attachments from params and converts it to the accepted format.
 
   ## Options
 
