@@ -99,6 +99,11 @@ defmodule Waffle.Ecto.Schema do
       {field, upload = %{__struct__: Plug.Upload}}, fields ->
         [{field, {upload, scope}} | fields]
 
+      # Allow update with data from schema
+      {field, data = %{file_name: filename}}, fields
+      when is_binary(filename) ->
+        [{field, {data, scope}} | fields]
+
       # Allow casting binary data structs
       {field, upload = %{filename: filename, binary: binary}}, fields
       when is_binary(filename) and is_binary(binary) ->

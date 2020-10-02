@@ -63,6 +63,16 @@ defmodule WaffleTest.Ecto.Schema do
     %{file_name: "file.png", updated_at: _} = cs.changes.avatar
   end
 
+  test_with_mock "supports updating with already existing data", DummyDefinition,
+    store: fn {_, %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    attrs = %{"avatar" => build_upload("/path/to/my/file.png")}
+    cs = TestUser.changeset(%TestUser{}, attrs)
+    assert {:ok, user} = Ecto.Changeset.apply_action(cs, :insert)
+    TestUser.changeset(user, %{"avatar" => user.avatar})
+  end
+
   test_with_mock "cascades storage error into an error", DummyDefinition,
     store: fn {%{__struct__: Plug.Upload, path: "/path/to/my/file.png", filename: "file.png"},
                %TestUser{}} ->
