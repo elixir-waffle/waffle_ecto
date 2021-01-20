@@ -11,7 +11,7 @@ defmodule Waffle.Ecto.Mixfile do
      deps: deps(),
      docs: docs(),
 
-    # Hex
+     # Hex
      description: description(),
      package: package()]
   end
@@ -20,7 +20,9 @@ defmodule Waffle.Ecto.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :waffle]]
+    [
+      extra_applications: [:logger]
+    ]
   end
 
   # Specifies which paths to compile per environment.
