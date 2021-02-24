@@ -14,20 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Elixir
-      uses: actions/setup-elixir@v1
-      with:
-        elixir-version: '1.10.3' # Define the elixir version [required]
-        otp-version: '22.3' # Define the OTP version [required]
-    - name: Restore dependencies cache
-      uses: actions/cache@v2
-      with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: mix deps.get
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile.codeship --tag waffle_ecto
     - name: Run linters
-      run: mix credo
+      run: docker run waffle_ecto mix credo
     - name: Run tests
-      run: mix test
+      run: docker run waffle_ecto mix test
