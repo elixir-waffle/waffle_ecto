@@ -3,12 +3,9 @@
 [evrone-img]: https://img.shields.io/badge/Sponsored_by-Evrone-brightgreen.svg
 [evrome-url]: https://evrone.com?utm_source=waffle
 
-[![Codeship Status for elixir-waffle/waffle_ecto][codeship-img]][codeship-url]
 [![Hex.pm Version][hex-img]][hex-url]
 [![waffle_ecto documentation][hexdocs-img]][hexdocs-url]
 
-[codeship-img]: https://app.codeship.com/projects/60167fe0-aa59-0137-be69-2259d5318dee/status?branch=master
-[codeship-url]: https://app.codeship.com/projects/361675
 [hex-img]: http://img.shields.io/hexpm/v/waffle_ecto.svg
 [hex-url]: https://hex.pm/packages/waffle_ecto
 [hexdocs-img]: http://img.shields.io/badge/hexdocs-documentation-brightgreen.svg

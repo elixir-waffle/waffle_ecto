@@ -9,6 +9,6 @@ COPY . .
 
 ENV MIX_ENV=test
 
-RUN mix deps.get
+RUN mix deps.get && mix deps.compile
 
 CMD mix test
