@@ -1,3 +1,0 @@
-waffle_ecto:
-  build:
-    dockerfile: Dockerfile.codeship

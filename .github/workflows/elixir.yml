@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile.codeship --tag waffle_ecto
+      run: docker build . --file Dockerfile --tag waffle_ecto
 
     - name: Run linters
       run: docker run waffle_ecto mix credo --strict
