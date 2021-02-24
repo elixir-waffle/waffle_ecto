@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build_and_test:
 
     name: Build and test
     runs-on: ubuntu-latest
@@ -17,22 +17,8 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile.codeship --tag waffle_ecto
 
-  linters:
-    name: Run linters
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
     - name: Run linters
       run: docker run waffle_ecto mix credo --strict
-    - name: Run tests
-      run: docker run waffle_ecto mix test
 
-  tests:
-    name: Run tests
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
     - name: Run tests
       run: docker run waffle_ecto mix test
