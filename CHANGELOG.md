@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.0.10 (2021-02-25)
+- (typo) attachements -> attachments (#24)
+- Fix compile warning in Elixir 1.11 (#30)
+- Move to GtiHub CI from CodeShip CI (#31)
+- Use elixir v1.11 as base image
+
+
 ## v0.0.9 (2020-05-25)
   * add logo (#17)
   * follow all waffle minor version updates (#18)
