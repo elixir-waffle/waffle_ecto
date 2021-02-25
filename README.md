@@ -1,15 +1,17 @@
-# Waffle.Ecto [![Sponsored by Evrone][evrone-img]][evrome-url]
+[hex-img]: http://img.shields.io/hexpm/v/waffle_ecto.svg
+[hex-url]: https://hex.pm/packages/waffle_ecto
+
+[hexdocs-img]: http://img.shields.io/badge/hexdocs-documentation-brightgreen.svg
+[hexdocs-url]: https://hexdocs.pm/waffle_ecto
 
 [evrone-img]: https://img.shields.io/badge/Sponsored_by-Evrone-brightgreen.svg
 [evrome-url]: https://evrone.com?utm_source=waffle
 
+# Waffle.Ecto [![Sponsored by Evrone][evrone-img]][evrome-url]
+
 [![Hex.pm Version][hex-img]][hex-url]
 [![waffle_ecto documentation][hexdocs-img]][hexdocs-url]
 
-[hex-img]: http://img.shields.io/hexpm/v/waffle_ecto.svg
-[hex-url]: https://hex.pm/packages/waffle_ecto
-[hexdocs-img]: http://img.shields.io/badge/hexdocs-documentation-brightgreen.svg
-[hexdocs-url]: https://hexdocs.pm/waffle_ecto
 
 <img align="right" width="176" height="120"
      alt="Waffle.Ecto provides an integration with Waffle and Ecto"
