@@ -81,6 +81,24 @@ defmodule WaffleTest.Ecto.Schema do
     end)
   end
 
+  test_with_mock "cascades custom storage error into an error", DummyDefinition,
+    store: fn {%{__struct__: Plug.Upload, path: "/path/to/my/file.png", filename: "file.png"},
+               %TestUser{}} ->
+      {:error, "file type is invalid"}
+    end do
+    upload = build_upload("/path/to/my/file.png")
+
+    capture_log(fn ->
+      cs = TestUser.changeset(%TestUser{}, %{"avatar" => upload})
+      assert called(DummyDefinition.store({upload, %TestUser{}}))
+      assert cs.valid? == false
+
+      assert cs.errors == [
+               avatar: {"file type is invalid", [type: DummyDefinition.Type, validation: :cast]}
+             ]
+    end)
+  end
+
   test_with_mock "converts changeset into schema", DummyDefinition,
     store: fn {%{__struct__: Plug.Upload, path: "/path/to/my/file.png", filename: "file.png"},
                %TestUser{}} ->
