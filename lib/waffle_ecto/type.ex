@@ -19,9 +19,19 @@ defmodule Waffle.Ecto.Type do
 
   def cast(definition, args) do
     case definition.store(args) do
-      {:ok, file} -> {:ok, %{file_name: file, updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now, :second)}}
+      {:ok, file} ->
+        {:ok, %{file_name: file, updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)}}
+
+      {:error, message} = error when is_binary(message) ->
+        log_error(error)
+        {:error, [message: message]}
+
+      {:error, [message: message]} = error ->
+        log_error(error)
+        {:error, [message: message]}
+
       error ->
-        Logger.error(inspect(error))
+        log_error(error)
         :error
     end
   end
@@ -61,4 +71,6 @@ defmodule Waffle.Ecto.Type do
   def dump(definition, %{"file_name" => file_name, "updated_at" => updated_at}) do
     dump(definition, %{file_name: file_name, updated_at: updated_at})
   end
+
+  defp log_error(error), do: Logger.error(inspect(error))
 end
