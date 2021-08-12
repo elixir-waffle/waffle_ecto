@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.11 (2021-08-12)
+- Update dependencies
+- Allow custom error messages to be set on cast (#35)
+
 ## v0.0.10 (2021-02-25)
 - (typo) attachements -> attachments (#24)
 - Fix compile warning in Elixir 1.11 (#30)
