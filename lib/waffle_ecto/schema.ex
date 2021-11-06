@@ -104,24 +104,33 @@ defmodule Waffle.Ecto.Schema do
       when is_binary(filename) and is_binary(binary) ->
         [{field, {upload, scope}} | fields]
 
+      {field, upload = %{filename: filename, path: path}}, fields
+      when is_binary(filename) and is_binary(path) ->
+        path = String.trim(path)
+        upload = %{upload | path: path}
+        if path_allowed?(path, options), do: [{field, {upload, scope}} | fields], else: fields
+
       # If casting a binary (path), ensure we've explicitly allowed paths
       {field, path}, fields when is_binary(path) ->
         path = String.trim(path)
-
-        cond do
-          path == "" ->
-            fields
-
-          Keyword.get(options, :allow_urls, false) and Regex.match?(~r/^https?:\/\//, path) ->
-            [{field, {path, scope}} | fields]
-
-          Keyword.get(options, :allow_paths, false) ->
-            [{field, {path, scope}} | fields]
-
-          true ->
-            fields
-        end
+        if path_allowed?(path, options), do: [{field, {path, scope}} | fields], else: fields
     end)
+  end
+
+  defp path_allowed?(path, options) do
+    cond do
+      path == "" ->
+        false
+
+      Keyword.get(options, :allow_urls, false) and Regex.match?(~r/^https?:\/\//, path) ->
+        true
+
+      Keyword.get(options, :allow_paths, false) ->
+        true
+
+      true ->
+        false
+    end
   end
 
   def convert_params_to_binary(params) do
