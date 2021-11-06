@@ -163,12 +163,42 @@ defmodule WaffleTest.Ecto.Schema do
     assert called(DummyDefinition.store({"/path/to/my/file.png", %TestUser{}}))
   end
 
+  test_with_mock "allow_paths => true with a map", DummyDefinition,
+    store: fn {%{path: "/path/to/my/file.png", filename: "avatar.png"}, %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    TestUser.path_changeset(%TestUser{}, %{
+      "avatar" => %{path: "  /path/to/my/file.png  ", filename: "avatar.png"}
+    })
+
+    assert called(
+             DummyDefinition.store(
+               {%{path: "/path/to/my/file.png", filename: "avatar.png"}, %TestUser{}}
+             )
+           )
+  end
+
   test_with_mock "allow_urls => true", DummyDefinition,
     store: fn {"http://external.url/file.png", %TestUser{}} ->
       {:ok, "file.png"}
     end do
     TestUser.url_changeset(%TestUser{}, %{"avatar" => "   http://external.url/file.png   "})
     assert called(DummyDefinition.store({"http://external.url/file.png", %TestUser{}}))
+  end
+
+  test_with_mock "allow_urls => true with a map", DummyDefinition,
+    store: fn {%{path: "http://external.url/file.png", filename: "avatar.png"}, %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    TestUser.url_changeset(%TestUser{}, %{
+      "avatar" => %{path: "   http://external.url/file.png   ", filename: "avatar.png"}
+    })
+
+    assert called(
+             DummyDefinition.store(
+               {%{path: "http://external.url/file.png", filename: "avatar.png"}, %TestUser{}}
+             )
+           )
   end
 
   test_with_mock "allow_urls => true with an invalid URL", DummyDefinition,
