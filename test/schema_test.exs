@@ -11,6 +11,7 @@ defmodule WaffleTest.Ecto.Schema do
     schema "users" do
       field(:first_name, :string)
       field(:avatar, DummyDefinition.Type)
+      field(:images, {:array, DummyDefinition.Type})
     end
 
     def changeset(user, params \\ :invalid) do
@@ -39,6 +40,13 @@ defmodule WaffleTest.Ecto.Schema do
       |> cast(params, ~w(first_name)a)
       |> cast_attachments(params, ~w(avatar)a)
     end
+
+     def images_changeset(user, params \\ :invalid) do
+      user
+      |> cast(params, ~w(first_name)a)
+      |> cast_attachments(params, ~w(images)a)
+      |> validate_required(:images)
+    end
   end
 
   def build_upload(path) do
@@ -61,6 +69,24 @@ defmodule WaffleTest.Ecto.Schema do
     cs = TestUser.changeset(%TestUser{}, %{"avatar" => upload})
     assert cs.valid?
     %{file_name: "file.png", updated_at: _} = cs.changes.avatar
+  end
+
+  test_with_mock "cascades storage success with an array", DummyDefinition,
+    store: fn {%{__struct__: Plug.Upload, path: "/path/to/my/file.png", filename: "file.png"},
+               %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    upload1 = build_upload("/path/to/my/file.png")
+    upload2 = build_upload("/path/to/my/file.png")
+
+    cs = TestUser.images_changeset(%TestUser{}, %{"images" => [upload1, upload2]})
+
+    assert cs.valid?
+
+    [
+      %{file_name: "file.png", updated_at: _},
+      %{file_name: "file.png", updated_at: _}
+    ] = cs.changes.images
   end
 
   test_with_mock "cascades storage error into an error", DummyDefinition,
