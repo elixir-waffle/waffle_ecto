@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.12 (2022-03-07)
+- Add support for array fields
+
 ## v0.0.11 (2021-08-12)
 - Update dependencies
 - Allow custom error messages to be set on cast (#35)
