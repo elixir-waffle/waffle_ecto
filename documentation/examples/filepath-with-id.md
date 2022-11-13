@@ -41,3 +41,30 @@ Ecto.Multi.new()
 |> Ecto.Multi.update(:user_with_avatar, &User.avatar_changeset(&1.user, attrs))
 |> Repo.transaction()
 ```
+
+This can be used in a Phoenix app context like
+
+```elixir
+defmodule Accounts do
+  # ...
+  
+  def create_user(attrs \\ %{}) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:user, User.changeset(%User{}, attrs))
+    |> Ecto.Multi.update(:user_with_avatar, &User.avatar_changeset(&1.user, attrs))
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user_with_avatar: user}} -> {:ok, user}
+      {:error, _, changeset, _} -> {:error, changeset}
+  end
+  
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> User.avatar_changeset(attrs)
+    |> Repo.update()
+  end
+  
+  # ...
+end
+```
