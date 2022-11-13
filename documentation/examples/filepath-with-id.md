@@ -65,6 +65,12 @@ defmodule Accounts do
     |> Repo.update()
   end
   
+  def change_user(%User{} = user, attrs \\ %{}) do
+    user
+    |> User.changeset(attrs)
+    |> User.avatar_changeset(attrs)
+  end
+  
   # ...
 end
 ```
