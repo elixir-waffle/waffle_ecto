@@ -37,4 +37,30 @@ defmodule WaffleTest.Ecto.Type do
     {:ok, dumped_type} = DummyDefinition.Type.dump(value)
     assert dumped_type == "file.png"
   end
+
+  test "dumps as embedded type to a string" do
+    timestamp = NaiveDateTime.from_erl!({{1970, 1, 1}, {0, 0, 0}})
+
+    assert {:ok, value} =
+      Ecto.Type.embedded_dump(
+        DummyDefinition.Type,
+        %{file_name: "file.png", updated_at: timestamp},
+        :json
+      )
+
+    assert value == "file.png?62167219200"
+  end
+
+  test "loads as embedded type from a string" do
+    timestamp = NaiveDateTime.from_erl!({{1970, 1, 1}, {0, 0, 0}})
+
+    assert {:ok, value} =
+      Ecto.Type.embedded_load(
+        DummyDefinition.Type,
+        "file.png?62167219200",
+        :json
+      )
+
+    assert value == %{file_name: "file.png", updated_at: timestamp}
+  end
 end

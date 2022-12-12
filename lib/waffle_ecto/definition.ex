@@ -56,6 +56,7 @@ defmodule Waffle.Ecto.Definition do
         def cast(value), do: Waffle.Ecto.Type.cast(unquote(definition), value)
         def load(value), do: Waffle.Ecto.Type.load(unquote(definition), value)
         def dump(value), do: Waffle.Ecto.Type.dump(unquote(definition), value)
+        def embed_as(format), do: Waffle.Ecto.Type.embed_as(unquote(definition), format)
       end
 
       def url({%{file_name: file_name, updated_at: updated_at}, scope}, version, options) do
