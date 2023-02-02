@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.12 (2023-02-02)
+- Update dependencies
+
 ## v0.0.11 (2021-08-12)
 - Update dependencies
 - Allow custom error messages to be set on cast (#35)
