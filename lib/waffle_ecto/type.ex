@@ -72,5 +72,7 @@ defmodule Waffle.Ecto.Type do
     dump(definition, %{file_name: file_name, updated_at: updated_at})
   end
 
+  def embed_as(_definition, _format), do: :dump
+
   defp log_error(error), do: Logger.error(inspect(error))
 end
