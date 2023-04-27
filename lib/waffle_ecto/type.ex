@@ -3,8 +3,6 @@ defmodule Waffle.Ecto.Type do
   Provides implementation for custom Ecto.Type behaviour.
   """
 
-  require Logger
-
   def type, do: :string
 
   @filename_with_timestamp ~r{^(.*)\?(\d+)$}
@@ -72,5 +70,5 @@ defmodule Waffle.Ecto.Type do
     dump(definition, %{file_name: file_name, updated_at: updated_at})
   end
 
-  defp log_error(error), do: Logger.error(inspect(error))
+  defp log_error(error), do: WaffleEcto.Logger.log(:error, inspect(error))
 end
