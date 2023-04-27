@@ -3,8 +3,6 @@ defmodule WaffleEcto.Logger do
 
   @callback log(level :: level(), message :: binary) :: :ok
 
-  @adapter Application.compile_env(:waffle_ecto, :log_adapter, WaffleEcto.Logger.Default)
-
   @doc ~S"""
   Log a message using the log adapter.
   This function expect an atom representing the level (`:info`, `:warning`, `:error`) and a message.
@@ -44,6 +42,10 @@ defmodule WaffleEcto.Logger do
   """
   @spec log(level :: level, message :: binary()) :: :ok
   def log(level, message) do
-    @adapter.log(level, message)
+    adapter().log(level, message)
+  end
+
+  defp adapter do
+    Application.get_env(:waffle_ecto, :log_adapter, WaffleEcto.Logger.Default)
   end
 end
