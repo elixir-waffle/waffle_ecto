@@ -65,7 +65,8 @@ defmodule Waffle.Ecto.Definition do
           url
         else
           case {url, updated_at} do
-            {nil, _} -> nil
+            {nil, _} ->
+              nil
 
             {_, %NaiveDateTime{}} ->
               version_url(updated_at, url)
@@ -80,6 +81,8 @@ defmodule Waffle.Ecto.Definition do
       end
 
       def url(f, v, options), do: super(f, v, options)
+
+      defoverridable [{:url, 3}]
 
       def delete({%{file_name: file_name, updated_at: _updated_at}, scope}),
         do: super({file_name, scope})
