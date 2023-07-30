@@ -89,6 +89,8 @@ defmodule Waffle.Ecto.Definition do
 
       def delete(args), do: super(args)
 
+      defoverridable [{:delete, 1}]
+
       defp version_url(updated_at, url) do
         stamp = :calendar.datetime_to_gregorian_seconds(NaiveDateTime.to_erl(updated_at))
 
