@@ -7,7 +7,7 @@ defmodule Waffle.Ecto.Mixfile do
     [app: :waffle_ecto,
      version: @version,
      elixir: "~> 1.4",
-     elixirc_paths: elixirc_paths(Mix.env),
+     elixirc_paths: elixirc_paths(Mix.env()),
      deps: deps(),
      docs: docs(),
 
