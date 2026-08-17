@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.0.13
+
+- Keep attachments optional when parameters are empty or invalid, leaving required validation to `validate_required/3`
+- Add support for Waffle 2.0 release candidates and stable 2.x while retaining Waffle 1.x support
+- Require Elixir 1.15 or newer
+- Upgrade ExDoc to 0.40 and include documentation sources in the Hex package
+- Update dependencies
+
+
 ## v0.0.12 (2023-02-02)
 - Update dependencies
 
