@@ -223,4 +223,19 @@ defmodule WaffleTest.Ecto.Schema do
              )
            )
   end
+
+  test_with_mock "casting stream data", DummyDefinition,
+    store: fn {%{filename: "/path/to/my/file.png", stream: %Stream{}}, %TestUser{}} ->
+      {:ok, "file.png"}
+    end do
+    TestUser.changeset(%TestUser{}, %{
+      "avatar" => %{filename: "/path/to/my/file.png", stream: %Stream{}}
+    })
+
+    assert called(
+             DummyDefinition.store(
+               {%{filename: "/path/to/my/file.png", stream: %Stream{}}, %TestUser{}}
+             )
+           )
+  end
 end

@@ -110,6 +110,10 @@ defmodule Waffle.Ecto.Schema do
         upload = %{upload | path: path}
         if path_allowed?(path, options), do: [{field, {upload, scope}} | fields], else: fields
 
+      {field, upload = %{filename: filename, stream: stream}}, fields
+      when is_binary(filename) and is_map(stream) ->
+        [{field, {upload, scope}} | fields]
+
       # If casting a binary (path), ensure we've explicitly allowed paths
       {field, path}, fields when is_binary(path) ->
         path = String.trim(path)
