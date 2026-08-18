@@ -65,7 +65,8 @@ defmodule Waffle.Ecto.Definition do
           url
         else
           case {url, updated_at} do
-            {nil, _} -> nil
+            {nil, _} ->
+              nil
 
             {_, %NaiveDateTime{}} ->
               version_url(updated_at, url)
@@ -81,10 +82,14 @@ defmodule Waffle.Ecto.Definition do
 
       def url(f, v, options), do: super(f, v, options)
 
+      defoverridable [{:url, 3}]
+
       def delete({%{file_name: file_name, updated_at: _updated_at}, scope}),
         do: super({file_name, scope})
 
       def delete(args), do: super(args)
+
+      defoverridable [{:delete, 1}]
 
       defp version_url(updated_at, url) do
         stamp = :calendar.datetime_to_gregorian_seconds(NaiveDateTime.to_erl(updated_at))
