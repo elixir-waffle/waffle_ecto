@@ -1,25 +1,20 @@
-[hex-img]: http://img.shields.io/hexpm/v/waffle_ecto.svg
-[hex-url]: https://hex.pm/packages/waffle_ecto
+# Waffle.Ecto
 
-[hexdocs-img]: http://img.shields.io/badge/hexdocs-documentation-brightgreen.svg
-[hexdocs-url]: https://hexdocs.pm/waffle_ecto
-
-[evrone-img]: https://img.shields.io/badge/Sponsored_by-Evrone-brightgreen.svg
-[evrome-url]: https://evrone.com?utm_source=waffle
-
-# Waffle.Ecto [![Sponsored by Evrone][evrone-img]][evrome-url]
-
-[![Hex.pm Version][hex-img]][hex-url]
-[![waffle_ecto documentation][hexdocs-img]][hexdocs-url]
-
-
-<img align="right" width="176" height="120"
-     alt="Waffle.Ecto provides an integration with Waffle and Ecto"
-     src="https://elixir-waffle.github.io/waffle/assets/waffle-ecto-logo.svg">
+<img align="right" width="176" height="120" alt="Waffle.Ecto logo" src="https://elixir-waffle.github.io/waffle/assets/waffle-ecto-logo.svg">
 
 Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
-[Documentation](https://hexdocs.pm/waffle_ecto)
+[Documentation](https://hexdocs.pm/waffle_ecto/readme.html)
+ · [Hex](https://hex.pm/packages/waffle_ecto)
+
+[Presentation at ElixirConf](https://www.youtube.com/watch?v=4iM-V9yELsE)
+ · [Thinking Elixir Podcast 80](https://podcast.thinkingelixir.com/80)
+
+---
+
+Already using Waffle in your org? I'd love to learn more. Let's [have a chat](https://cal.com/achempion/meet) or just [send me an email](mailto:me@achempion.com?subject=Feedback%20on%20Waffle).
+
+---
 
 ## Installation
 
@@ -35,9 +30,14 @@ end
 
 Then run `mix deps.get` in your shell to fetch the dependencies.
 
-## Development
+## Usage
 
-[Development documentation](/documentation/development.md)
+See the [Waffle.Ecto guide](https://hexdocs.pm/waffle_ecto/Waffle.Ecto.html) for uploader and schema setup, and [`cast_attachments/4`](https://hexdocs.pm/waffle_ecto/Waffle.Ecto.Schema.html#cast_attachments/4) for attachment casting and cleanup.
+
+## Sponsors
+
+- [Oficinaria](https://oficinaria.com.br?utm_source=waffle), marketplace for in-person creative workshops in Brazil
+- [Tecotype](https://tecotype.com?utm_source=waffle), keyboard-first mail app
 
 ## License
 

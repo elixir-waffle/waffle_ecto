@@ -1,5 +1,5 @@
 defmodule Waffle.Ecto do
-  @moduledoc """
+  @moduledoc ~S"""
   Waffle.Ecto connects your Waffle definition with Ecto via custom Ecto types.
 
   First, connect Waffle.Ecto to your uploader definition
