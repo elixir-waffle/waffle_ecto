@@ -112,6 +112,27 @@ defmodule WaffleTest.Ecto.Schema do
     end)
   end
 
+  test_with_mock "with Waffle.File as upload", DummyDefinition,
+    store: fn {%{
+                 __struct__: Waffle.File,
+                 path: "/path/to/my/file.png",
+                 file_name: "custom.png",
+                 is_tempfile?: true
+               }, %TestUser{}} ->
+      {:error, :invalid_file}
+    end do
+    upload = %Waffle.File{
+      path: "/path/to/my/file.png",
+      file_name: "custom.png",
+      is_tempfile?: true
+    }
+
+    capture_log(fn ->
+      TestUser.changeset(%TestUser{}, %{"avatar" => upload})
+      assert called(DummyDefinition.store({upload, %TestUser{}}))
+    end)
+  end
+
   test_with_mock "applies changes to schema", DummyDefinition,
     store: fn {%{__struct__: Plug.Upload, path: "/path/to/my/file.png", filename: "file.png"},
                %TestUser{}} ->
