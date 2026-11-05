@@ -1,6 +1,6 @@
 # Waffle.Ecto
 
-<img align="right" width="176" height="120" alt="Waffle.Ecto logo" src="https://elixir-waffle.github.io/waffle/assets/waffle-ecto-logo.svg">
+<img align="right" width="176" alt="Waffle.Ecto logo" src="https://elixir-waffle.github.io/waffle/assets/waffle-ecto-logo.svg">
 
 Waffle.Ecto provides an integration with [Waffle](https://github.com/elixir-waffle/waffle) and Ecto.
 
