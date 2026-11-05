@@ -1,35 +1,14 @@
 defmodule Waffle.Ecto.Schema do
-  @moduledoc ~S"""
-  Defines helpers to work with changeset.
-
-  Add a using statement `use Waffle.Ecto.Schema` to the top of your
-  ecto schema, and specify the type of the column in your schema as
-  `MyApp.Avatar.Type`.
-
-  Attachments can subsequently be passed to Waffle's storage though a
-  Changeset `cast_attachments/3` function, following the syntax of
-  `cast/3`.
-
-  ## Example
-
-      defmodule MyApp.User do
-        use MyApp.Web, :model
-        use Waffle.Ecto.Schema
-
-        schema "users" do
-          field :name,   :string
-          field :avatar, MyApp.Uploaders.AvatarUploader.Type
-        end
-
-        def changeset(user, params \\ %{}) do
-          user
-          |> cast(params, [:name])
-          |> cast_attachments(params, [:avatar])
-          |> validate_required([:name, :avatar])
-        end
-      end
-
+  @moduledoc """
+  Provides helpers for casting attachments in Ecto changesets.
   """
+
+  @type changeset_params :: map() | nil | :invalid
+  @type permitted_fields :: [atom()]
+
+  @type attachment_option ::
+          {:allow_urls, boolean()}
+          | {:allow_paths, boolean()}
 
   defmacro __using__(_) do
     quote do
@@ -38,18 +17,78 @@ defmodule Waffle.Ecto.Schema do
   end
 
   @doc ~S"""
-  Extracts attachments from params and converts it to the accepted format.
+  Converts a payload into a schema change.
+
+  This function triggers Waffle's file processing and storage pipeline
+  during type casting.
+
+  ## Type casting
+
+  When processing the payload, the function expects the payload to be an attachment.
+
+  An attachment can be represented in the following forms:
+
+    * `%Plug.Upload{}`
+    * `%Waffle.File{}`
+    * `%{filename: "name.jpg", binary: <<42>>}`
+    * `%{filename: "name.jpg", path: "/path/to/file.jpg"}` - requires
+      `allow_paths: true`
+    * `%{filename: "name.jpg", path: "https://example.com/file.jpg"}` -
+      requires `allow_paths: true` or `allow_urls: true`
+    * `"/path/to/file.jpg"` - requires `allow_paths: true`
+    * `"https://example.com/file.jpg"` - requires `allow_paths: true` or
+      `allow_urls: true`
 
   ## Options
 
-    * `:allow_urls` — fetches remote file if the string matches `~r/^https?:\/\//`
-    * `:allow_paths` — accepts any local path as file destination
+    * `:allow_urls` - defaults to `false`, fetches a remote file if the
+      string matches `~r/^https?:\/\//`
+    * `:allow_paths` - defaults to `false`, accepts a local path as a source
+      file, **should never be used with untrusted input**
 
   ## Examples
 
-      cast_attachments(changeset, params, [:fetched_remote_file], allow_urls: true)
+      cast_attachments(
+        changeset,
+        params,
+        [:attachment],
+        allow_urls: true,
+        allow_paths: true
+      )
 
+  ## Cleaning up files after schema changes
+
+  When removing or updating files, you need to handle the cleanup
+  after the schema update. In general, it's recommended to put file
+  handling into a dedicated changeset function, as file handling
+  happens during type casting.
+
+      old_avatar = user.avatar
+      old_scope = user
+
+      changeset =
+        user
+        |> Ecto.Changeset.change()
+        |> cast_attachments(%{"avatar" => nil}, [:avatar])
+
+      case Repo.update(changeset) do
+        {:ok, updated_user} ->
+          if updated_user.avatar == nil && old_avatar do
+            AvatarUploader.delete({old_avatar, old_scope})
+          end
+
+          {:ok, updated_user}
+
+        {:error, changeset} ->
+          {:error, changeset}
+      end
   """
+  @spec cast_attachments(
+          Ecto.Changeset.t() | struct(),
+          changeset_params(),
+          permitted_fields(),
+          [attachment_option()]
+        ) :: Ecto.Changeset.t() | struct()
   defmacro cast_attachments(changeset_or_data, params, allowed, options \\ []) do
     quote bind_quoted: [
             changeset_or_data: changeset_or_data,

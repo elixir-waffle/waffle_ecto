@@ -1,21 +1,40 @@
 defmodule Waffle.Ecto do
   @moduledoc """
-  Waffle.Ecto provides an integration with [Waffle](https://hexdocs.pm/waffle/) and `Ecto`.
+  Waffle.Ecto connects your Waffle definition with Ecto via custom Ecto types.
 
-  Waffle attachments should be stored in a string column, with a name indicative of the attachment.
+  First, connect Waffle.Ecto to your uploader definition
 
-      create table :users do
-        add :avatar, :string
+      defmodule MyApp.AvatarUploader do
+        use Waffle.Ecto.Definition
+
+        def storage_dir(_, {_, scope}), do: "uploads/avatar/#{scope.id}"
       end
 
-  ## How to add `waffle_ecto` to your project
+  Second, use the definition's Ecto-compatible type in your schema
 
-    * add [Schema](Waffle.Ecto.Schema.html) to the model
-    * configure [Definition](Waffle.Ecto.Definition.html) for uploader
+      defmodule MyApp.User do
+        schema "users" do
+          field :avatar, MyApp.AvatarUploader.Type
+        end
 
-  ## Pages
+        def changeset(user, attrs) do
+          user
+          |> cast_attachments(attrs, [:avatar])
+        end
+      end
 
-    * [How to use `:id` in filepath](filepath-with-id.html)
+  Please read `Waffle.Ecto.Schema.cast_attachments/4` for details on how attachment casting works.
+
+  Also, Waffle.Ecto stores the `updated_at` timestamp in the file schema and automatically adds it to the URL for cache busting.
+
+  ## How to use schema `id` in storage directory
+
+  If you have auto-generated record IDs, you need to insert a record before processing the file upload.
+
+      Ecto.Multi.new()
+      |> Ecto.Multi.insert(:user, User.changeset(user, attrs))
+      |> Ecto.Multi.update(:user_with_avatar, &User.avatar_changeset(&1.user, attrs))
+      |> Repo.transaction()
 
   """
 
