@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.0
+
+- Requires Waffle 2.1 as a minimum version
+- Improve `cast_attachments/4` documentation
+- Accept Waffle.File struct during upload type casting
+
 ## v0.0.13
 
 - Keep attachments optional when parameters are empty or invalid, leaving required validation to `validate_required/3`

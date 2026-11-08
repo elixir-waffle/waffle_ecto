@@ -1,7 +1,7 @@
 defmodule Waffle.Ecto.Mixfile do
   use Mix.Project
 
-  @version "0.0.13"
+  @version "0.1.0"
 
   def project do
     [app: :waffle_ecto,
@@ -51,7 +51,7 @@ defmodule Waffle.Ecto.Mixfile do
 
   defp deps do
     [
-      {:waffle, "~> 1.0 or ~> 2.0-rc"},
+      {:waffle, "~> 2.1"},
       {:ecto, "~> 3.0"},
       {:mock, "~> 0.3", only: :test},
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
